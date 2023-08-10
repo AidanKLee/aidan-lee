@@ -1,0 +1,64 @@
+@import "./scrollbars.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
+  }
+
+  h5 {
+    @apply text-lg;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h1 {
+    @apply text-4xl;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply flex w-fit items-center gap-2 rounded-3xl border-2 px-5 py-2 font-bold uppercase focus:outline-0;
+  }
+
+  .btn-primary {
+    @apply border-black-bean bg-black-bean text-yellow-mikado duration-300 hover:border-violet-ultra hover:bg-violet-ultra focus:border-violet-ultra focus:bg-violet-ultra focus:ring-2 focus:ring-offset-gray-paynes;
+  }
+
+  .btn-secondary {
+    @apply border-black-bean text-black-bean duration-300 hover:border-violet-ultra hover:bg-violet-ultra hover:text-yellow-mikado focus:border-violet-ultra focus:bg-violet-ultra focus:text-yellow-mikado focus:ring-2 focus:ring-offset-gray-paynes;
+  }
+
+  .container {
+    @apply max-w-screen-xs mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl;
+  }
+
+  .menu {
+    @apply fixed right-0 top-0 h-full w-full max-w-xs bg-yellow-mikado p-5 shadow-2xl md:relative md:w-auto md:max-w-none md:p-0 md:shadow-none;
+    transition: transform 0.3s;
+  }
+
+  .nav-link {
+    @apply select-none hover:text-violet-ultra focus:text-violet-ultra focus:outline-0;
+    transition: color 0.3s;
+  }
+}

@@ -9,9 +9,9 @@ export default function Home() {
         <div className="container flex grow select-none flex-col items-center justify-center px-4">
           <div className="xs:text-3xl flex flex-col gap-4 text-xl font-black uppercase sm:text-5xl lg:text-7xl">
             <div>
-              <p className="xs:text-5xl text-3xl sm:text-7xl lg:text-9xl">
+              <h1 className="xs:text-5xl text-4xl sm:text-7xl lg:text-9xl">
                 Aidan Lee
-              </p>
+              </h1>
               <p>Full Stack Developer</p>
             </div>
             <div className="flex flex-wrap items-center gap-4 text-base">

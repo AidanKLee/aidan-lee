@@ -31,6 +31,7 @@ export default {
       },
       fontFamily: {
         sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+        serif: ["Playfair Display", ...defaultTheme.fontFamily.serif],
       },
       screens: {
         xs: "440px",

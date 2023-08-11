@@ -1,4 +1,4 @@
-@import "./scrollbars.css";
+@import "./serif.css";
 
 @tailwind base;
 @tailwind components;
@@ -49,11 +49,11 @@
   }
 
   .container {
-    @apply max-w-screen-xs mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl;
+    @apply mx-auto max-w-screen-xs sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl;
   }
 
   .menu {
-    @apply fixed right-0 top-0 h-full w-full max-w-xs bg-yellow-mikado p-5 shadow-2xl md:relative md:w-auto md:max-w-none md:p-0 md:shadow-none;
+    @apply fixed right-0 top-0 z-10 h-full w-full max-w-[360px] bg-yellow-mikado p-5 shadow-2xl md:relative md:w-auto md:max-w-none md:p-0 md:shadow-none;
     transition: transform 0.3s;
   }
 

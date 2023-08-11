@@ -4,27 +4,27 @@ import { useState } from "react";
 const navLinks = [
   {
     text: "Home",
-    href: "/",
+    href: route("home"),
   },
   {
     text: "About",
-    href: "/",
+    href: route("about"),
   },
   {
     text: "Portfolio",
-    href: "/",
+    href: route("home"),
   },
   {
     text: "Music",
-    href: "/",
+    href: route("home"),
   },
   {
     text: "Blog",
-    href: "/",
+    href: route("home"),
   },
   {
     text: "Contact",
-    href: "/",
+    href: route("home"),
   },
 ];
 
@@ -36,7 +36,7 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed left-0 top-0 w-full">
+    <header className="w-full bg-yellow-mikado">
       <div className="mx-auto flex max-w-screen-2xl justify-between px-4 py-2 md:py-4">
         <div className="flex w-full justify-between md:w-fit">
           <Link

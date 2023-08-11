@@ -7,15 +7,15 @@ export default function Home() {
     <Main>
       <section className="flex grow">
         <div className="container flex grow select-none flex-col items-center justify-center px-4">
-          <div className="xs:text-3xl flex flex-col gap-4 text-xl font-black uppercase sm:text-5xl lg:text-7xl">
+          <div className="flex flex-col gap-4 text-xl font-black uppercase xs:text-3xl sm:text-5xl lg:text-7xl">
             <div>
-              <h1 className="xs:text-5xl text-4xl sm:text-7xl lg:text-9xl">
+              <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-9xl">
                 Aidan Lee
               </h1>
               <p>Full Stack Developer</p>
             </div>
             <div className="flex flex-wrap items-center gap-4 text-base">
-              <Link className="btn btn-primary" href="/">
+              <Link className="btn btn-primary" href={route("about")}>
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +29,10 @@ export default function Home() {
                 </div>
                 <span>About</span>
               </Link>
-              <Link className="btn btn-secondary hidden sm:flex" href="/">
+              <Link
+                className="btn btn-secondary hidden sm:flex"
+                href={route("about")}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512"
@@ -41,7 +44,7 @@ export default function Home() {
                 </svg>
                 <span>Portfolio</span>
               </Link>
-              <Link className="btn btn-secondary" href="/">
+              <Link className="btn btn-secondary" href={route("about")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512"

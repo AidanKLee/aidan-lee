@@ -10,10 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const container = useRef(null);
-  const header = useRef(null);
-  const subheader = useRef(null);
-  const tagline = useRef(null);
-  const links = useRef(null);
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
@@ -126,7 +122,7 @@ export default function Home() {
               </Link>
               <Link
                 className="btn btn-secondary hidden sm:flex"
-                href={route("about")}
+                href={route("portfolio")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

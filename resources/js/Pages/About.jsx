@@ -1,6 +1,12 @@
 import ExternalLinks from "@/Components/ExternalLinks";
 import Main from "@/Layouts/Main";
 import { Link } from "@inertiajs/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef } from "react";
+import SplitType from "split-type";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const technologies = [
   {
@@ -62,73 +68,151 @@ const technologies = [
 ];
 
 export default function About() {
+  const container = useRef(null);
+
+  useLayoutEffect(() => {
+    const context = gsap.context(() => {
+      gsap.utils.toArray("section").forEach((section, i) => {
+        const splits = section.querySelectorAll(".split");
+        const tech = Array.from(section.querySelectorAll(".tech"));
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: "+=1024px",
+          pin: true,
+        });
+
+        splits.forEach((split, i) => {
+          const text = new SplitType(split, { types: "chars,words" });
+
+          gsap.from(text.chars, {
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "+=768px",
+              scrub: 1,
+            },
+            opacity: 0,
+            stagger: 0.1,
+            scaleY: 0,
+            transformOrigin: "top",
+            y: -100,
+            duration: 1,
+          });
+        });
+
+        if (tech.length) {
+          gsap.from(tech, {
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "+=768px",
+              scrub: 1,
+            },
+            opacity: 0,
+            scale: 0,
+            transformOrigin: "top",
+            y: 100,
+            duration: 1,
+          });
+        }
+      });
+    }, container);
+
+    return () => context.revert();
+  }, []);
+
   return (
     <Main>
-      <section>
-        <div className="container mx-auto overflow-hidden px-4">
-          <h1 className="my-8 select-none font-serif text-4xl uppercase leading-none xs:text-5xl sm:text-7xl lg:text-9xl">
-            About
-          </h1>
-          <p className="my-8 max-w-screen-md select-none font-serif text-xl font-medium italic sm:text-4xl">
-            Creating is my passion, providing value is my goal, curiosity drives
-            me, patience and resillience move me forward. There's nothing more
-            fulfilling than bringing ideas to life.
-          </p>
-          <p className="my-8 max-w-screen-md select-none text-3xl font-medium sm:text-6xl">
-            I'm Aidan, a dedicated Full Stack Developer with a passion for
-            crafting seamless digital experiences and a solid foundation in both
-            frontend and backend technologies.
-          </p>
-          <h2 className="my-2 select-none text-lg sm:my-4 sm:text-3xl">
-            Most used technologies
-          </h2>
-          <ul className="my-2 flex flex-wrap gap-4 sm:my-4">
-            {technologies.map(({ icon, text }) => {
-              return (
-                <li
-                  className="group relative duration-300 hover:text-violet-ultra"
-                  key={text}
-                >
-                  <div
-                    className="mx-auto w-fit duration-300 group-hover:rotate-3 group-hover:scale-105"
-                    dangerouslySetInnerHTML={{ __html: icon }}
-                  ></div>
-                  <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-[110%] rounded-3xl bg-black-bean px-3 py-1 text-center font-bold text-yellow-mikado opacity-0 duration-300 group-hover:opacity-100">
-                    {text}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          <div className="my-8 flex flex-wrap gap-4">
-            <Link className="btn btn-primary" href={route("home")}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20"
-                width="20"
-                viewBox="0 0 512 512"
-                fill="currentColor"
-              >
-                <path d="M184 48H328c4.4 0 8 3.6 8 8V96H176V56c0-4.4 3.6-8 8-8zm-56 8V96H64C28.7 96 0 124.7 0 160v96H192 320 512V160c0-35.3-28.7-64-64-64H384V56c0-30.9-25.1-56-56-56H184c-30.9 0-56 25.1-56 56zM512 288H320v32c0 17.7-14.3 32-32 32H224c-17.7 0-32-14.3-32-32V288H0V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V288z" />
-              </svg>
-              Portfolio
-            </Link>
-            <Link className="btn btn-secondary" href={route("home")}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="20"
-                width="20"
-                viewBox="0 0 384 512"
-                fill="currentColor"
-              >
-                <path d="M381.9 388.2c-6.4 27.4-27.2 42.8-55.1 48-24.5 4.5-44.9 5.6-64.5-10.2-23.9-20.1-24.2-53.4-2.7-74.4 17-16.2 40.9-19.5 76.8-25.8 6-1.1 11.2-2.5 15.6-7.4 6.4-7.2 4.4-4.1 4.4-163.2 0-11.2-5.5-14.3-17-12.3-8.2 1.4-185.7 34.6-185.7 34.6-10.2 2.2-13.4 5.2-13.4 16.7 0 234.7 1.1 223.9-2.5 239.5-4.2 18.2-15.4 31.9-30.2 39.5-16.8 9.3-47.2 13.4-63.4 10.4-43.2-8.1-58.4-58-29.1-86.6 17-16.2 40.9-19.5 76.8-25.8 6-1.1 11.2-2.5 15.6-7.4 10.1-11.5 1.8-256.6 5.2-270.2.8-5.2 3-9.6 7.1-12.9 4.2-3.5 11.8-5.5 13.4-5.5 204-38.2 228.9-43.1 232.4-43.1 11.5-.8 18.1 6 18.1 17.6.2 344.5 1.1 326-1.8 338.5z" />
-              </svg>
-              Music
-            </Link>
+      <div ref={container}>
+        <section className="relative flex h-screen select-none px-4">
+          <div className="mx-auto my-auto">
+            <h1 className="text-center text-4xl uppercase xs:text-5xl sm:text-7xl lg:text-9xl">
+              About
+            </h1>
+            <p className="split text-center uppercase tracking-widest lg:text-2xl">
+              Discover the Depths, See the World Through My Eyes
+            </p>
           </div>
-          <ExternalLinks className="my-8" />
-        </div>
-      </section>
+        </section>
+        <section className="relative flex h-screen select-none bg-gray-paynes px-4 text-white-smoke">
+          <div className="mx-auto my-auto">
+            <p className="split max-w-screen-md select-none font-serif text-xl font-medium italic sm:text-4xl">
+              "Creating is my passion, providing value is my goal, curiosity
+              drives me, patience and resillience move me forward. There's
+              nothing more fulfilling than bringing ideas to life."
+            </p>
+          </div>
+        </section>
+        <section className="relative flex h-screen select-none bg-black-bean px-4">
+          <div className="mx-auto my-auto">
+            <p className="split my-8 max-w-screen-md select-none text-3xl font-medium text-white-smoke sm:text-6xl">
+              I'm Aidan, a dedicated Full Stack Developer with a passion for
+              crafting seamless digital experiences and a solid foundation in
+              both frontend and backend technologies.
+            </p>
+          </div>
+        </section>
+        <section className="relative flex h-screen select-none overflow-hidden bg-white-smoke px-4">
+          <div className="mx-auto my-auto">
+            <h2 className="split select-none text-center text-lg sm:my-4 sm:text-3xl">
+              Most used technologies
+            </h2>
+            <ul className="my-2 flex flex-wrap justify-center gap-4 sm:my-4">
+              {technologies.map(({ icon, text }) => {
+                return (
+                  <li
+                    className="tech group relative duration-300 hover:text-violet-ultra"
+                    key={text}
+                  >
+                    <div
+                      className="mx-auto w-fit duration-300 group-hover:rotate-3 group-hover:scale-105"
+                      dangerouslySetInnerHTML={{ __html: icon }}
+                    ></div>
+                    <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-[110%] rounded-3xl bg-black-bean px-3 py-1 text-center font-bold text-white-smoke opacity-0 duration-300 group-hover:opacity-100">
+                      {text}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+        <section className="relative flex h-screen select-none px-4">
+          <div className="mx-auto my-auto">
+            <p className="split mb-8 select-none text-center text-3xl font-medium sm:text-6xl">
+              Balancing the Art of Work and Play
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link className="btn btn-primary" href={route("portfolio")}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20"
+                  width="20"
+                  viewBox="0 0 512 512"
+                  fill="currentColor"
+                >
+                  <path d="M184 48H328c4.4 0 8 3.6 8 8V96H176V56c0-4.4 3.6-8 8-8zm-56 8V96H64C28.7 96 0 124.7 0 160v96H192 320 512V160c0-35.3-28.7-64-64-64H384V56c0-30.9-25.1-56-56-56H184c-30.9 0-56 25.1-56 56zM512 288H320v32c0 17.7-14.3 32-32 32H224c-17.7 0-32-14.3-32-32V288H0V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V288z" />
+                </svg>
+                Portfolio
+              </Link>
+              <Link className="btn btn-secondary" href={route("home")}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="20"
+                  width="20"
+                  viewBox="0 0 384 512"
+                  fill="currentColor"
+                >
+                  <path d="M381.9 388.2c-6.4 27.4-27.2 42.8-55.1 48-24.5 4.5-44.9 5.6-64.5-10.2-23.9-20.1-24.2-53.4-2.7-74.4 17-16.2 40.9-19.5 76.8-25.8 6-1.1 11.2-2.5 15.6-7.4 6.4-7.2 4.4-4.1 4.4-163.2 0-11.2-5.5-14.3-17-12.3-8.2 1.4-185.7 34.6-185.7 34.6-10.2 2.2-13.4 5.2-13.4 16.7 0 234.7 1.1 223.9-2.5 239.5-4.2 18.2-15.4 31.9-30.2 39.5-16.8 9.3-47.2 13.4-63.4 10.4-43.2-8.1-58.4-58-29.1-86.6 17-16.2 40.9-19.5 76.8-25.8 6-1.1 11.2-2.5 15.6-7.4 10.1-11.5 1.8-256.6 5.2-270.2.8-5.2 3-9.6 7.1-12.9 4.2-3.5 11.8-5.5 13.4-5.5 204-38.2 228.9-43.1 232.4-43.1 11.5-.8 18.1 6 18.1 17.6.2 344.5 1.1 326-1.8 338.5z" />
+                </svg>
+                Music
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
     </Main>
   );
 }

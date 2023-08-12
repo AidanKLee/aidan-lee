@@ -1,5 +1,6 @@
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
+import ReturnToTop from "@/Components/ReturnToTop";
 import Lenis from "@studio-freight/lenis";
 
 const lenis = new Lenis();
@@ -17,6 +18,7 @@ export default function Main({ children }) {
       <Header />
       <main className="flex grow flex-col">{children}</main>
       <Footer />
+      <ReturnToTop />
     </div>
   );
 }

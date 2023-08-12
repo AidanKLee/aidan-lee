@@ -23,7 +23,7 @@ export default {
           ultra: "#645E9D",
         },
         black: {
-          bean: "#250001",
+          bean: "#001400",
         },
         white: {
           smoke: "#F3F3F3",

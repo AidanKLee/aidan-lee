@@ -1,20 +1,115 @@
 import ExternalLinks from "@/Components/ExternalLinks";
 import Main from "@/Layouts/Main";
 import { Link } from "@inertiajs/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useRef } from "react";
+import SplitType from "split-type";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const container = useRef(null);
+  const header = useRef(null);
+  const subheader = useRef(null);
+  const tagline = useRef(null);
+  const links = useRef(null);
+
+  useLayoutEffect(() => {
+    const context = gsap.context(() => {
+      gsap.utils.toArray("section").forEach((section, i) => {
+        const splits = section.querySelectorAll(".split");
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: "+=1024px",
+          pin: true,
+        });
+
+        splits.forEach((split, i) => {
+          const text = new SplitType(split, { types: "chars,words" });
+
+          gsap.from(text.chars, {
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "+=768px",
+              scrub: 1,
+            },
+            opacity: 0,
+            stagger: 0.1,
+            scaleY: 0,
+            transformOrigin: "top",
+            y: -100,
+            duration: 1,
+          });
+        });
+      });
+    }, container);
+
+    return () => context.revert();
+  }, []);
+
   return (
     <Main>
-      <section className="flex grow">
-        <div className="container flex grow select-none flex-col items-center justify-center px-4">
-          <div className="flex flex-col gap-4 text-xl font-black uppercase xs:text-3xl sm:text-5xl lg:text-7xl">
-            <div>
-              <h1 className="text-4xl xs:text-5xl sm:text-7xl lg:text-9xl">
-                Aidan Lee
-              </h1>
-              <p>Full Stack Developer</p>
+      <div ref={container}>
+        <section className="relative flex h-screen select-none px-4">
+          <div className="mx-auto my-auto flex flex-col">
+            <svg
+              className="mx-auto mb-2 h-16 w-40 md:h-36 md:w-72"
+              version="1.2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 506 219"
+              width="506"
+              height="219"
+              fill="currentColor"
+            >
+              <path d="m88.2 134.8c0 8.6-7.1 15.4-15.7 15.4-8.7 0-15.8-6.8-15.8-15.4 0-8.6 7.1-15.4 15.8-15.4 8.6 0 15.7 6.8 15.7 15.4z" />
+              <path d="m12.3 201.9c-6.3 2.9-4.8-16.5-4.6-18.1 4.3-36.3 47.5-149.6 78.7-168.1 14.2-8.5 25.8 1.5 29.2 16.3 2 9 3.1 25.7 4.7 36.1 4.8 29.3 13.3 74.3 48.4 80.2 28.1 4.6 88.7-16.5 117.9-23.9 64.4-16.4 135.6-22 195.8 11.8 7 3.9 7.5 4 13.1 9.7-7.8-0.8-8.4-1.4-15.8-3.6-62.2-19.2-109.5-16.9-171.4 1-36.9 10.6-89.5 33.1-125.6 35.7-75.8 5.6-87.4-73.1-90.5-130.9-0.2-2.6-0.4-4.8-0.6-6.9-7.2 8-17.3 23.1-19.9 27.4-12.7 20-64 114.3-59.4 133.3zm84.9-165.4c0.2 0 0.4-0.1 0.7-0.2-0.3 0-0.5 0.1-0.7 0.2z" />
+            </svg>
+            <ExternalLinks className="mx-auto" />
+            <h1 className="split text-center text-4xl uppercase xs:text-5xl sm:text-7xl lg:text-9xl">
+              Aidan Lee
+            </h1>
+            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 flex-col items-center justify-center gap-2">
+              <p className="text-center font-bold">
+                Discover the Unseen: Scroll down for more
+              </p>
+              <svg
+                className="hover h-8 w-8"
+                xmlns="http://www.w3.org/2000/svg"
+                height="1em"
+                viewBox="0 0 512 512"
+              >
+                <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+              </svg>
             </div>
-            <div className="flex flex-wrap items-center gap-4 text-base">
+          </div>
+        </section>
+        <section className="flex h-screen select-none bg-black-bean px-4 text-white-smoke">
+          <div className="mx-auto my-auto">
+            <p className="split text-center text-4xl uppercase xs:text-5xl sm:text-7xl lg:text-9xl">
+              Full Stack Developer
+            </p>
+            <p className="split text-center uppercase tracking-widest lg:text-2xl">
+              Ignite, Create, Innovate: Giving Wings to Ideas!
+            </p>
+          </div>
+        </section>
+        <section className="flex h-screen select-none bg-violet-ultra px-4 text-white-smoke">
+          <div className="mx-auto my-auto">
+            <p className="split text-center font-serif text-2xl italic lg:text-5xl">
+              "Pixels and Purpose: Forging Connections Beyond the Screen."
+            </p>
+          </div>
+        </section>
+        <section className="flex h-screen select-none px-4">
+          <div className="mx-auto my-auto">
+            <p className="split mb-8 text-center text-2xl font-bold lg:text-5xl">
+              Dive Deeper into the Experience!
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-base">
               <Link className="btn btn-primary" href={route("about")}>
                 <div>
                   <svg
@@ -57,10 +152,9 @@ export default function Home() {
                 <span>Contact</span>
               </Link>
             </div>
-            <ExternalLinks />
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </Main>
   );
 }

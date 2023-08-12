@@ -1,5 +1,15 @@
 import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
+import Lenis from "@studio-freight/lenis";
+
+const lenis = new Lenis();
+
+function smooothScroll(time) {
+  lenis.raf(time);
+  requestAnimationFrame(smooothScroll);
+}
+
+requestAnimationFrame(smooothScroll);
 
 export default function Main({ children }) {
   return (

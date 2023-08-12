@@ -62,3 +62,27 @@
     transition: color 0.3s;
   }
 }
+
+.char {
+  will-change: auto;
+}
+
+.hover {
+  animation: hover 2s linear 0s infinite forwards;
+  will-change: auto;
+}
+
+@keyframes hover {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(-4px);
+  }
+  75% {
+    transform: translateY(4px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

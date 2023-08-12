@@ -12,7 +12,7 @@ const navLinks = [
   },
   {
     text: "Portfolio",
-    href: route("home"),
+    href: route("portfolio"),
   },
   {
     text: "Music",

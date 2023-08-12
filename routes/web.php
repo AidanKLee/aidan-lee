@@ -34,6 +34,15 @@ Route::get('/about', function () {
     ]);
 })->name('about');
 
+Route::get('/portfolio', function () {
+    return Inertia::render('Portfolio', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('portfolio');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

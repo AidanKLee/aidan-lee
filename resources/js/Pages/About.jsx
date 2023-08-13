@@ -125,7 +125,7 @@ export default function About() {
             scrollTrigger: {
               trigger: section,
               start: "top top",
-              end: "+=768px",
+              end: "+=960px",
               scrub: 1,
             },
             opacity: 0,
@@ -148,7 +148,7 @@ export default function About() {
           animation: timeline,
           trigger: section,
           start: "top top",
-          end: "+=768px",
+          end: "+=960px",
           scrub: 1,
         });
       });
@@ -239,7 +239,7 @@ export default function About() {
                 </svg>
                 Portfolio
               </Link>
-              <Link className="btn btn-secondary" href={route("home")}>
+              <Link className="btn btn-secondary" href={route("music")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="20"

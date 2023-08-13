@@ -16,15 +16,15 @@ const navLinks = [
   },
   {
     text: "Music",
-    href: route("home"),
+    href: route("music"),
   },
   {
     text: "Blog",
-    href: route("home"),
+    href: route("blog"),
   },
   {
     text: "Contact",
-    href: route("home"),
+    href: route("contact"),
   },
 ];
 

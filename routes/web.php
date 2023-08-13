@@ -53,6 +53,24 @@ Route::get('/music', function () {
     ]);
 })->name('music');
 
+Route::get('/blog', function () {
+    return Inertia::render('Blog', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('blog');
+
+Route::get('/contact', function () {
+    return Inertia::render('Contact', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('contact');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

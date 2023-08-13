@@ -58,7 +58,7 @@ export default function Home() {
           animation: timeline,
           trigger: section,
           start: "top top",
-          end: "+=768px",
+          end: "+=960px",
           scrub: 1,
         });
       });
@@ -148,7 +148,7 @@ export default function Home() {
                 </svg>
                 <span>Portfolio</span>
               </Link>
-              <Link className="btn btn-secondary" href={route("about")}>
+              <Link className="btn btn-secondary" href={route("contact")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512"

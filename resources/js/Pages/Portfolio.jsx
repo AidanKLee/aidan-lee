@@ -12,60 +12,61 @@ export default function Portfolio() {
   const container = useRef(null);
 
   useLayoutEffect(() => {
-    const context = gsap.context(() => {}, container);
-    const individualSplit = document.querySelector(".individual-split");
-    const text = new SplitType(individualSplit, { types: "chars,words" });
+    const context = gsap.context(() => {
+      const individualSplit = document.querySelector(".individual-split");
+      const text = new SplitType(individualSplit, { types: "chars,words" });
 
-    gsap.from(text.chars, {
-      opacity: 0,
-      stagger: 0.1,
-      scaleY: 0,
-      transformOrigin: "top",
-      y: -100,
-      duration: 1,
-    });
-
-    gsap.utils.toArray("section").forEach((section, i) => {
-      const splits = section.querySelectorAll(".split");
-      const buttons = section.querySelectorAll(".btn");
-      const timeline = gsap.timeline();
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: "+=1024px",
-        pin: true,
+      gsap.from(text.chars, {
+        opacity: 0,
+        stagger: 0.1,
+        scaleY: 0,
+        transformOrigin: "top",
+        y: -100,
+        duration: 1,
       });
 
-      splits.forEach((split, i) => {
-        const text = new SplitType(split, { types: "chars,words" });
+      gsap.utils.toArray("section").forEach((section, i) => {
+        const splits = section.querySelectorAll(".split");
+        const buttons = section.querySelectorAll(".btn");
+        const timeline = gsap.timeline();
 
-        timeline.from(text.chars, {
-          opacity: 0,
-          stagger: 0.1,
-          scaleY: 0,
-          transformOrigin: "top",
-          y: -100,
-          duration: 1,
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: "+=1024px",
+          pin: true,
+        });
+
+        splits.forEach((split, i) => {
+          const text = new SplitType(split, { types: "chars,words" });
+
+          timeline.from(text.chars, {
+            opacity: 0,
+            stagger: 0.1,
+            scaleY: 0,
+            transformOrigin: "top",
+            y: -100,
+            duration: 1,
+          });
+        });
+
+        if (buttons.length) {
+          timeline.from(buttons, {
+            opacity: 0,
+            stagger: 0.1,
+            duration: 1,
+          });
+        }
+
+        ScrollTrigger.create({
+          animation: timeline,
+          trigger: section,
+          start: "top top",
+          end: "+=960px",
+          scrub: 1,
         });
       });
-
-      if (buttons.length) {
-        timeline.from(buttons, {
-          opacity: 0,
-          stagger: 0.1,
-          duration: 1,
-        });
-      }
-
-      ScrollTrigger.create({
-        animation: timeline,
-        trigger: section,
-        start: "top top",
-        end: "+=768px",
-        scrub: 1,
-      });
-    });
+    }, container);
 
     return () => context.revert();
   }, []);
@@ -97,7 +98,13 @@ export default function Portfolio() {
                 </a>
               </h2>
               <p className="split mb-4 uppercase">
-                Frontend | Backend @ We Create Digital
+                Frontend | Backend @{" "}
+                <a
+                  className="font-bold text-violet-ultra"
+                  href="https://wecreate.digital"
+                >
+                  We Create Digital
+                </a>
               </p>
               <p className="split mb-8 max-w-screen-md font-serif italic sm:text-3xl">
                 Gain profound insights into the financial sector on this reviews
@@ -219,7 +226,7 @@ export default function Portfolio() {
               In the meantime take a look at my
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link className="btn btn-primary" href={route("home")}>
+              <Link className="btn btn-primary" href={route("music")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="20"
@@ -231,7 +238,7 @@ export default function Portfolio() {
                 </svg>
                 Music
               </Link>
-              <Link className="btn btn-secondary" href={route("home")}>
+              <Link className="btn btn-secondary" href={route("blog")}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="20"
@@ -239,7 +246,7 @@ export default function Portfolio() {
                   viewBox="0 0 384 512"
                   fill="currentColor"
                 >
-                  <path d="M381.9 388.2c-6.4 27.4-27.2 42.8-55.1 48-24.5 4.5-44.9 5.6-64.5-10.2-23.9-20.1-24.2-53.4-2.7-74.4 17-16.2 40.9-19.5 76.8-25.8 6-1.1 11.2-2.5 15.6-7.4 6.4-7.2 4.4-4.1 4.4-163.2 0-11.2-5.5-14.3-17-12.3-8.2 1.4-185.7 34.6-185.7 34.6-10.2 2.2-13.4 5.2-13.4 16.7 0 234.7 1.1 223.9-2.5 239.5-4.2 18.2-15.4 31.9-30.2 39.5-16.8 9.3-47.2 13.4-63.4 10.4-43.2-8.1-58.4-58-29.1-86.6 17-16.2 40.9-19.5 76.8-25.8 6-1.1 11.2-2.5 15.6-7.4 10.1-11.5 1.8-256.6 5.2-270.2.8-5.2 3-9.6 7.1-12.9 4.2-3.5 11.8-5.5 13.4-5.5 204-38.2 228.9-43.1 232.4-43.1 11.5-.8 18.1 6 18.1 17.6.2 344.5 1.1 326-1.8 338.5z" />
+                  <path d="M192 32c0 17.7 14.3 32 32 32c123.7 0 224 100.3 224 224c0 17.7 14.3 32 32 32s32-14.3 32-32C512 128.9 383.1 0 224 0c-17.7 0-32 14.3-32 32zm0 96c0 17.7 14.3 32 32 32c70.7 0 128 57.3 128 128c0 17.7 14.3 32 32 32s32-14.3 32-32c0-106-86-192-192-192c-17.7 0-32 14.3-32 32zM96 144c0-26.5-21.5-48-48-48S0 117.5 0 144V368c0 79.5 64.5 144 144 144s144-64.5 144-144s-64.5-144-144-144H128v96h16c26.5 0 48 21.5 48 48s-21.5 48-48 48s-48-21.5-48-48V144z" />
                 </svg>
                 Blog
               </Link>

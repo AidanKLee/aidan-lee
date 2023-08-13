@@ -20,7 +20,7 @@ export default function Music() {
           scaleY: 0,
           transformOrigin: "top",
           y: -100,
-          duration: 1,
+          duration: 0.5,
         });
       });
     }, container);

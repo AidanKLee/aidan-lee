@@ -21,7 +21,7 @@ export default function Home() {
         .from(logo.current, {
           y: -100,
           opacity: 0,
-          duration: 1,
+          duration: 0.5,
         })
         .from(".external-link", {
           y: 32,

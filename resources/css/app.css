@@ -48,6 +48,14 @@
     @apply border-black-bean text-black-bean duration-300 hover:border-violet-ultra hover:bg-violet-ultra hover:text-yellow-mikado focus:border-violet-ultra focus:bg-violet-ultra focus:text-yellow-mikado focus:ring-2 focus:ring-offset-gray-paynes;
   }
 
+  .btn-tertiary {
+    @apply border-white-smoke bg-white-smoke text-black-bean duration-300 hover:border-violet-ultra hover:bg-violet-ultra hover:text-white-smoke focus:border-violet-ultra focus:bg-violet-ultra focus:text-white-smoke focus:ring-2 focus:ring-offset-gray-paynes;
+  }
+
+  .btn-quarternary {
+    @apply border-gray-paynes bg-gray-paynes text-white-smoke duration-300 hover:border-violet-ultra hover:bg-violet-ultra hover:text-white-smoke focus:border-violet-ultra focus:bg-violet-ultra focus:text-white-smoke focus:ring-2 focus:ring-offset-gray-paynes;
+  }
+
   .container {
     @apply mx-auto max-w-screen-xs sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl;
   }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -42,6 +43,16 @@ Route::get('/portfolio', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 })->name('portfolio');
+
+Route::get('/music', function () {
+    return Inertia::render('Music', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('music');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

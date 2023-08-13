@@ -1,4 +1,5 @@
 import ExternalLinks from "@/Components/ExternalLinks";
+import ScrollDownHint from "@/Components/ScrollDownHint";
 import Main from "@/Layouts/Main";
 import { Link } from "@inertiajs/react";
 import { gsap } from "gsap";
@@ -69,12 +70,35 @@ const technologies = [
 
 export default function About() {
   const container = useRef(null);
+  const header = useRef(null);
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
+      const timeline = gsap.timeline();
+      const individualSplit = document.querySelector(".individual-split");
+      const text = new SplitType(individualSplit, { types: "chars,words" });
+
+      timeline
+        .from(text.chars, {
+          opacity: 0,
+          stagger: 0.1,
+          scaleY: 0,
+          transformOrigin: "top",
+          y: -100,
+          duration: 1,
+        })
+        .from(".external-link", {
+          y: 32,
+          opacity: 0,
+          stagger: 0.1,
+          scale: 0,
+        });
+
       gsap.utils.toArray("section").forEach((section, i) => {
         const splits = section.querySelectorAll(".split");
+        const buttons = section.querySelectorAll(".btn");
         const tech = Array.from(section.querySelectorAll(".tech"));
+        const timeline = gsap.timeline();
 
         ScrollTrigger.create({
           trigger: section,
@@ -86,13 +110,7 @@ export default function About() {
         splits.forEach((split, i) => {
           const text = new SplitType(split, { types: "chars,words" });
 
-          gsap.from(text.chars, {
-            scrollTrigger: {
-              trigger: section,
-              start: "top top",
-              end: "+=768px",
-              scrub: 1,
-            },
+          timeline.from(text.chars, {
             opacity: 0,
             stagger: 0.1,
             scaleY: 0,
@@ -117,6 +135,22 @@ export default function About() {
             duration: 1,
           });
         }
+
+        if (buttons.length) {
+          timeline.from(buttons, {
+            opacity: 0,
+            stagger: 0.1,
+            duration: 1,
+          });
+        }
+
+        ScrollTrigger.create({
+          animation: timeline,
+          trigger: section,
+          start: "top top",
+          end: "+=768px",
+          scrub: 1,
+        });
       });
     }, container);
 
@@ -128,12 +162,17 @@ export default function About() {
       <div ref={container}>
         <section className="relative flex h-screen select-none px-4">
           <div className="mx-auto my-auto">
-            <h1 className="text-center text-4xl uppercase xs:text-5xl sm:text-7xl lg:text-9xl">
+            <h1
+              ref={header}
+              className="individual-split text-center text-4xl uppercase xs:text-5xl sm:text-7xl lg:text-9xl"
+            >
               About
             </h1>
+            <ExternalLinks className="my-2 flex justify-center" />
             <p className="split text-center uppercase tracking-widest lg:text-2xl">
-              Discover the Depths, See the World Through My Eyes
+              Discover the depths, see the world through my eyes
             </p>
+            <ScrollDownHint />
           </div>
         </section>
         <section className="relative flex h-screen select-none bg-gray-paynes px-4 text-white-smoke">
@@ -143,6 +182,7 @@ export default function About() {
               drives me, patience and resillience move me forward. There's
               nothing more fulfilling than bringing ideas to life."
             </p>
+            <ScrollDownHint className="text-white-smoke" />
           </div>
         </section>
         <section className="relative flex h-screen select-none bg-black-bean px-4">
@@ -152,6 +192,7 @@ export default function About() {
               crafting seamless digital experiences and a solid foundation in
               both frontend and backend technologies.
             </p>
+            <ScrollDownHint className="text-white-smoke" />
           </div>
         </section>
         <section className="relative flex h-screen select-none overflow-hidden bg-white-smoke px-4">
@@ -177,12 +218,13 @@ export default function About() {
                 );
               })}
             </ul>
+            <ScrollDownHint />
           </div>
         </section>
         <section className="relative flex h-screen select-none px-4">
           <div className="mx-auto my-auto">
             <p className="split mb-8 select-none text-center text-3xl font-medium sm:text-6xl">
-              Balancing the Art of Work and Play
+              Balancing the art of work and play
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link className="btn btn-primary" href={route("portfolio")}>

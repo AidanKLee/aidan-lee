@@ -1,4 +1,20 @@
+import { useEffect, useState } from "react";
+
 export default function ReturnToTop() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  }, []);
+
+  function handleScroll() {
+    if (window.scrollY > window.innerHeight) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }
+
   function handleClick() {
     window.scrollTo({
       top: 0,
@@ -10,7 +26,9 @@ export default function ReturnToTop() {
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-4 right-4 rounded-full border-4 border-white-smoke bg-white-smoke p-1 duration-300 hover:text-violet-ultra"
+      className={`fixed bottom-4 right-4 rounded-full border-4 border-white-smoke bg-white-smoke p-1 duration-300 hover:text-violet-ultra ${
+        !show ? "pointer-events-none opacity-0" : ""
+      }`}
     >
       <svg
         className="h-8 w-8"

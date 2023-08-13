@@ -25,7 +25,7 @@ export default function ExternalLinks(props) {
       <ul className="flex gap-6">
         {links.map(({ icon, href }) => {
           return (
-            <li key={href}>
+            <li key={href} className="external-link">
               <a
                 className="block duration-300 hover:rotate-3 hover:scale-110 hover:text-violet-ultra focus:rotate-3 focus:scale-110 focus:text-violet-ultra focus:outline-0 focus:drop-shadow-lg"
                 href={href}

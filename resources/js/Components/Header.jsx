@@ -101,7 +101,7 @@ export default function Header() {
               <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
             </svg>
           </button>
-          <nav className="flex flex-col-reverse gap-4 md:flex-row md:items-end">
+          <nav className="flex flex-col gap-4 md:flex-row md:items-end">
             <ul className="flex flex-col gap-4 text-4xl font-medium uppercase md:flex-row md:items-center md:text-base">
               {navLinks.map(({ text, href }) => {
                 return (
@@ -117,7 +117,7 @@ export default function Header() {
               <div className="relative" ref={authMenu}>
                 <button
                   onClick={() => setAuthMenuOpen(!authMenuOpen)}
-                  className="flex items-center gap-1 text-base font-medium uppercase duration-300 hover:text-violet-ultra"
+                  className="flex w-full items-center justify-between gap-1 text-4xl font-medium uppercase duration-300 hover:text-violet-ultra focus:text-violet-ultra focus:outline-0 md:text-base"
                 >
                   {auth.user.first_name[0] + auth.user.last_name[0]}
                   <svg
@@ -134,15 +134,20 @@ export default function Header() {
                   </svg>
                 </button>
                 <div
-                  className={`absolute bottom-0 left-0 flex w-40 origin-top-left translate-y-full flex-col gap-2 rounded-lg bg-black-bean p-4 font-medium uppercase text-yellow-mikado duration-300 md:left-auto md:right-0 md:origin-top-right ${
-                    !authMenuOpen ? "pointer-events-none scale-0 opacity-0" : ""
+                  className={`absolute bottom-0 left-0 flex w-full origin-top translate-y-full flex-col gap-2 rounded-lg bg-black-bean p-4 font-medium uppercase text-yellow-mikado duration-300 md:left-auto md:right-0 md:w-40 md:origin-top-right ${
+                    !authMenuOpen
+                      ? "pointer-events-none scale-y-0 opacity-0 md:scale-0"
+                      : ""
                   }`}
                 >
-                  <Link className="block" href={route("dashboard")}>
+                  <Link
+                    className="block duration-300 hover:text-white-smoke focus:text-white-smoke focus:outline-0"
+                    href={route("dashboard")}
+                  >
                     Dashboard
                   </Link>
                   <Link
-                    className="block text-left uppercase"
+                    className="block text-left uppercase duration-300 hover:text-white-smoke focus:text-white-smoke focus:outline-0"
                     href={route("logout")}
                     method="post"
                     as="button"

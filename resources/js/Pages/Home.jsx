@@ -1,7 +1,7 @@
 import ExternalLinks from "@/Components/ExternalLinks";
 import ScrollDownHint from "@/Components/ScrollDownHint";
 import Main from "@/Layouts/Main";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef } from "react";
@@ -69,6 +69,7 @@ export default function Home() {
 
   return (
     <Main>
+      <Head title="Home" />
       <div ref={container}>
         <section className="relative flex h-screen select-none px-4">
           <div className="mx-auto my-auto flex flex-col">

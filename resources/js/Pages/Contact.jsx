@@ -1,3 +1,4 @@
+import { useFetch } from "@/Hooks/useFetch";
 import Main from "@/Layouts/Main";
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from "react";
@@ -5,6 +6,12 @@ import SplitType from "split-type";
 
 export default function Blog() {
   const container = useRef(null);
+
+  const { data, setData, post, processing, reset } = useFetch({
+    name: "",
+    email: "",
+    message: "",
+  });
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
@@ -28,6 +35,17 @@ export default function Blog() {
     return () => context.revert();
   }, []);
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const data = await post("/api/contact");
+
+    if (data.success) {
+      reset();
+    }
+    console.log(data);
+  }
+
   return (
     <Main>
       <div className="flex grow" ref={container}>
@@ -39,13 +57,18 @@ export default function Blog() {
             <p className="split mb-8 text-center uppercase tracking-widest lg:text-2xl">
               Want to get in touch? I'm excited to hear from you!
             </p>
-            <form className="mx-auto flex max-w-md flex-col gap-4 font-bold">
+            <form
+              className="mx-auto flex max-w-md flex-col gap-4 font-bold"
+              onSubmit={handleSubmit}
+            >
               <div>
                 <label htmlFor="name">Name *</label>
                 <input
                   className="w-full rounded-md border-0 focus:outline-0 focus:ring-2 focus:ring-violet-ultra"
                   id="name"
                   name="name"
+                  value={data.name}
+                  onChange={(e) => setData("name", e.target.value)}
                   required
                 />
               </div>
@@ -55,6 +78,8 @@ export default function Blog() {
                   className="w-full rounded-md border-0 focus:outline-0 focus:ring-2 focus:ring-violet-ultra"
                   id="email"
                   name="email"
+                  value={data.email}
+                  onChange={(e) => setData("email", e.target.value)}
                   required
                 />
               </div>
@@ -72,11 +97,17 @@ export default function Blog() {
                   className="h-24 w-full resize-none rounded-md border-0 focus:outline-0 focus:ring-2 focus:ring-violet-ultra"
                   id="message"
                   name="message"
+                  value={data.message}
+                  onChange={(e) => setData("message", e.target.value)}
                   required
                 ></textarea>
               </div>
               <div className="flex flex-wrap justify-end gap-4">
-                <button className="btn btn-primary" type="submit">
+                <button
+                  className="btn btn-primary disabled:opacity-50"
+                  type="submit"
+                  disabled={processing}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="20"

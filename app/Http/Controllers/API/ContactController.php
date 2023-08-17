@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ContactController extends Controller
@@ -25,11 +26,11 @@ class ContactController extends Controller
         $message = $request->post('message');
 
         try {
-            Mail::mailer('mailtrap')->to($to)->send(new ContactMail($name, $email, $message));
+            Mail::to($to)->send(new ContactMail($name, $email, $message));
 
-            return json_encode(['success' => true, 'status' => 200]);
+            return Response::json(['success' => true, 'status' => 200]);
         } catch (HttpExceptionInterface $e) {
-            return json_encode(['success' => false, 'message' => $e->getMessage(), 'status' => $e->getStatusCode()]);
+            return Response::json(['success' => false, 'message' => $e->getMessage(), 'status' => $e->getStatusCode()]);
         }
     }
 }

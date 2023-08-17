@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useFetch(inputtedData, method = "POST") {
+export function useFetch(inputtedData, headers, method = "POST") {
   const [data, setData] = useState(inputtedData);
   const [processing, setProcessing] = useState(false);
 
@@ -19,10 +19,11 @@ export function useFetch(inputtedData, method = "POST") {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          ...headers,
         },
         body: JSON.stringify(data),
       });
-      console.log(response);
+
       if (response.ok) {
         result = await response.json();
       } else {

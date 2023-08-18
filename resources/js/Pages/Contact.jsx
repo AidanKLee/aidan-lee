@@ -7,7 +7,7 @@ import SplitType from "split-type";
 export default function Blog() {
   const container = useRef(null);
 
-  const { data, setData, post, processing, reset } = useFetch({
+  const { data, setData, fetch, processing, reset } = useFetch({
     name: "",
     email: "",
     message: "",
@@ -38,12 +38,11 @@ export default function Blog() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const data = await post("/api/contact");
+    const data = await fetch("/api/contact");
 
     if (data.success) {
       reset();
     }
-    console.log(data);
   }
 
   return (

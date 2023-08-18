@@ -81,7 +81,7 @@ Route::prefix('/dashboard')->name('dashboard')->middleware(['auth', 'verified'])
         return Inertia::render('Profile');
     })->name('.profile');
 
-    Route::get('/music', function () {
+    Route::middleware(['auth.admin'])->get('/music', function () {
         return Inertia::render('MusicLibrary');
     })->name('.music');
 });

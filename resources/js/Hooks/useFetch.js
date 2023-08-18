@@ -8,7 +8,7 @@ export function useFetch(inputtedData, headers, method = "POST") {
     setData({ ...data, [key]: value });
   }
 
-  async function post(endpoint) {
+  async function fetch(endpoint) {
     let result;
 
     setProcessing(true);
@@ -47,7 +47,7 @@ export function useFetch(inputtedData, headers, method = "POST") {
   return {
     data,
     setData: handleSetData,
-    post,
+    fetch,
     processing,
     reset,
   };

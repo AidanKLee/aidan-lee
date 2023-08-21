@@ -13,10 +13,11 @@ export default function Profile() {
   const { auth } = usePage().props;
 
   const { data, setData, fetch, processing, reset } = useFetch({
+    id: auth.user.id,
     first_name: auth.user.first_name,
     last_name: auth.user.last_name,
     email: auth.user.email,
-    marketing: auth.user.marketting === 1,
+    marketing: auth.user.marketing,
   });
 
   const [hidePassword, setHidePassword] = useState(true);
@@ -49,10 +50,12 @@ export default function Profile() {
     return () => context.revert();
   }, []);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    fetch(route("register"));
+    const response = await fetch("/api/profile", "PUT");
+
+    console.log(response);
   }
 
   return (
@@ -204,7 +207,9 @@ export default function Profile() {
                   id="marketing"
                   name="marketing"
                   checked={data.marketing}
-                  onChange={(e) => setData("marketing", !data.marketing)}
+                  onChange={(e) =>
+                    setData("marketing", e.target.checked ? 1 : 0)
+                  }
                 />
                 <label className="text-sm" htmlFor="marketing">
                   I'm happy to receive emails that keep us in touch

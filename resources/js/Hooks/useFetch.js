@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useFetch(inputtedData, headers, method = "POST") {
+export function useFetch(inputtedData) {
   const [data, setData] = useState(inputtedData);
   const [processing, setProcessing] = useState(false);
 
@@ -8,20 +8,29 @@ export function useFetch(inputtedData, headers, method = "POST") {
     setData({ ...data, [key]: value });
   }
 
-  async function fetch(endpoint) {
+  async function get(endpoint, method = "POST", headers = {}) {
     let result;
+    const formData = new FormData();
 
     setProcessing(true);
 
+    for (let key in data) {
+      formData.append(key, data[key]);
+    }
+
+    formData.append("_method", method);
+
     try {
       const response = await fetch(endpoint, {
-        method,
+        method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
+          "X-CSRF-Token": document
+            .querySelector("meta[name='csrf-token']")
+            .getAttribute("content"),
           ...headers,
         },
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       if (response.ok) {
@@ -47,7 +56,7 @@ export function useFetch(inputtedData, headers, method = "POST") {
   return {
     data,
     setData: handleSetData,
-    fetch,
+    fetch: get,
     processing,
     reset,
   };
